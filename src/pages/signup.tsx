@@ -8,10 +8,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "../utils/firebase"
 import { FirebaseError } from "firebase/app"
 import { useRouter } from "next/router"
+import { DEFAULT_DISPLAY_NAME } from "@/constants"
 
 export default function Signup() {
     const router = useRouter()
-    const DEFAULT_NAME = "Pomato-farmer"
     const [isLoading, setIsLoading] = useState(false)
     
     const initialState = {
@@ -30,7 +30,7 @@ export default function Signup() {
             setIsLoading(true)
             setError("")
             const credentials = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
-            await updateProfile(credentials.user, { displayName: formData?.name ?? DEFAULT_NAME })
+            await updateProfile(credentials.user, { displayName: formData?.name ?? DEFAULT_DISPLAY_NAME })
             router.push("/")
         } catch (err) {
             if (err instanceof FirebaseError) {
