@@ -19,6 +19,7 @@ export default function Home() {
       if (!user) {
         router.push("/login")
       } else {
+        console.log(user)
         setIsLoading(false)
         user.displayName ? setUserName(user.displayName) : setUserName(DEFAULT_DISPLAY_NAME)
       }
