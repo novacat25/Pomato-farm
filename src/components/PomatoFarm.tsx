@@ -10,12 +10,13 @@ type Props = {
 export const PomatoFarm = ({ user }: Props) => {
   const [goalTimer, setGoalTimer] = useState(DEFAULT_MINUTE)
   const [pomoTimer, setPomoTimer] = useState(DEFAULT_POMO_TIMER)
-  const [isPomatoRunning, setIsPommatoRunning] = useState(false)
-  const intervalRef = useRef<number | null>(null)
+  const [isPomatoRunning, setIsPommatoRunning] = useState<boolean>(false)
+  const [isPaused, setIsPaused] = useState<boolean>(false)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const onClick = () => {
     console.log(user)
-    toggleIsPomatoRunning()
+    isPomatoRunning ? handlePause() : handleStart()
   }
 
   const runTimer = () => {
@@ -27,6 +28,44 @@ export const PomatoFarm = ({ user }: Props) => {
     }
   }
 
+  const handleSetGoalTimer = () => {
+    setPomoTimer(Number(goalTimer))
+    setIsPommatoRunning(false)
+    setIsPaused(false)
+
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+    }
+  }
+  
+  const handleStart = () => {
+    if (pomoTimer > 0) {
+      setIsPommatoRunning(true)
+      setIsPaused(false)
+    }
+  }
+
+  const handlePause = () => {
+    if (isPomatoRunning) {
+      setIsPaused(true)
+      setIsPommatoRunning(false)
+
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
+      }
+    }
+  }
+
+  const handleReset = () => {
+    setIsPommatoRunning(false)
+    setIsPaused(false)
+    setPomoTimer(typeof goalTimer === "number" ? goalTimer : 0)
+    
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+    }
+  }
+
   const onResetClick = () => {
     setIsPommatoRunning(false)
     setGoalTimer(DEFAULT_MINUTE)
@@ -34,29 +73,36 @@ export const PomatoFarm = ({ user }: Props) => {
   }
 
   useEffect(() => {
-    if (isPomatoRunning) {
-      runTimer()
-    }
-  }, [isPomatoRunning]) 
+    if (isPomatoRunning && !isPaused) {
+      timerRef.current = setInterval(() => {
+        setPomoTimer((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(timerRef.current!)
+            setIsPommatoRunning(false)
+            return 0
+          }
 
-  useEffect(() => {
-    if (isPomatoRunning) {
-      intervalRef.current = window.setInterval(() => {
-        setPomoTimer(prevTime => prevTime - 1)
-      }, INTERVAL_MILISECOND)
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
+          return prevTime - 1
+        })
+      }, 1000)
     }
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
       }
     }
-  }, [isPomatoRunning])
+  }, [isPomatoRunning, isPaused])
 
+  const formatTime = (time: number): string => {
+    const minutes = Math.floor(time / 60)
+    const seconds = time % 60
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}`
+  }  
+  
   const toggleIsPomatoRunning = () => setIsPommatoRunning(prev => !prev)
   
 
@@ -88,11 +134,14 @@ export const PomatoFarm = ({ user }: Props) => {
           <NumberInput.Control />
           <NumberInput.Input />
         </NumberInput.Root>
+        <Button onClick={handleSetGoalTimer}>
+          Set
+        </Button>
         <Button onClick={onResetClick}>
           Reset
         </Button>
       </Flex>
-      <Text>{pomoTimer}</Text>        
+      <Text>{formatTime(pomoTimer)}</Text>        
       <Text color="tomato" fontSize="0.9em">
         주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
       </Text>
