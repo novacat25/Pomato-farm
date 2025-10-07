@@ -68,8 +68,13 @@ export const PomatoFarm = ({ user }: Props) => {
 
   const onResetClick = () => {
     setIsPommatoRunning(false)
+    setIsPaused(false)
     setGoalTimer(DEFAULT_MINUTE)
     setPomoTimer(DEFAULT_POMO_TIMER)
+
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+    }
   }
 
   useEffect(() => {
