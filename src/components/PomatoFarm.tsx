@@ -19,15 +19,7 @@ export const PomatoFarm = ({ user }: Props) => {
     isPomatoRunning ? handlePause() : handleStart()
   }
 
-  const runTimer = () => {
-    if (isPomatoRunning) {
-      if(pomoTimer <= DEFAULT_POMO_TIMER) {
-        let innerTimer = Number(goalTimer)
-        setPomoTimer(innerTimer)
-      }
-    }
-  }
-
+  //TODO: set the timer as minute, not as second(by multipying SECOND_UNIT)
   const handleSetGoalTimer = () => {
     setPomoTimer(Number(goalTimer))
     setIsPommatoRunning(false)
@@ -42,6 +34,8 @@ export const PomatoFarm = ({ user }: Props) => {
     if (pomoTimer > 0) {
       setIsPommatoRunning(true)
       setIsPaused(false)
+    } else {
+      console.log("Set the Pomo Timer First!")
     }
   }
 
@@ -57,16 +51,6 @@ export const PomatoFarm = ({ user }: Props) => {
   }
 
   const handleReset = () => {
-    setIsPommatoRunning(false)
-    setIsPaused(false)
-    setPomoTimer(typeof goalTimer === "number" ? goalTimer : 0)
-    
-    if (timerRef.current) {
-      clearInterval(timerRef.current)
-    }
-  }
-
-  const onResetClick = () => {
     setIsPommatoRunning(false)
     setIsPaused(false)
     setGoalTimer(DEFAULT_MINUTE)
@@ -89,7 +73,7 @@ export const PomatoFarm = ({ user }: Props) => {
 
           return prevTime - 1
         })
-      }, 1000)
+      }, INTERVAL_MILISECOND)
     }
 
     return () => {
@@ -107,9 +91,6 @@ export const PomatoFarm = ({ user }: Props) => {
       "0"
     )}`
   }  
-  
-  const toggleIsPomatoRunning = () => setIsPommatoRunning(prev => !prev)
-  
 
   return (
     <Flex direction="column" gap={4}>
@@ -123,9 +104,10 @@ export const PomatoFarm = ({ user }: Props) => {
           size={{ mdTo2xl: 96, base: 48 }} 
         />
       </Box>
-      <Flex gap={4}>
+      {!isPomatoRunning && 
+      <Flex justifyContent="center" gap={4}>
         <NumberInput.Root 
-          width="200px" 
+          width="50%" 
           value={goalTimer}
           onValueChange={(e) => {
             setGoalTimer(e.value)
@@ -142,10 +124,11 @@ export const PomatoFarm = ({ user }: Props) => {
         <Button onClick={handleSetGoalTimer}>
           Set
         </Button>
-        <Button onClick={onResetClick}>
+        <Button onClick={handleReset}>
           Reset
         </Button>
       </Flex>
+      }
       <Text>{formatTime(pomoTimer)}</Text>        
       <Text color="tomato" fontSize="0.9em">
         주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
