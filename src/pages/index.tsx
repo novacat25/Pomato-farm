@@ -7,10 +7,12 @@ import { Button, Text, Flex, Grid, GridItem, Box } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from "@/constants"
+import { User } from "firebase/auth"
 
 
 export default function Home() {
   const router = useRouter()
+  const [loggedUser, setLoggedUser] = useState<User | null>()
   const [userName, setUserName] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
@@ -19,8 +21,10 @@ export default function Home() {
       if (!user) {
         router.push("/login")
       } else {
+        console.log(user)
         setIsLoading(false)
         user.displayName ? setUserName(user.displayName) : setUserName(DEFAULT_DISPLAY_NAME)
+        setLoggedUser(user)
       }
     })
 
@@ -44,6 +48,8 @@ export default function Home() {
     }
   }
 
+
+
   return (
     <Box padding={{ mdTo2xl: 8, base: 4 }}>
       <Flex id="user-information" justifyContent="flex-end" alignItems="center" gap={4}>
@@ -52,7 +58,7 @@ export default function Home() {
       </Flex>
       <Grid justifyItems="center" templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} gap="6">
         <GridItem>
-          <PomatoFarm />
+          <PomatoFarm user={loggedUser} />
         </GridItem>
         <GridItem>
           <PomatoManage />
