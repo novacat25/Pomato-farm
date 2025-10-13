@@ -8,16 +8,17 @@ import { DEFAULT_DISPLAY_NAME } from '@/constants'
 
 type Props = {
   user: User | null | undefined
+  isEditMode?: boolean
   onClickLogout?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
 }
 
-export const UserInfo = ({ user, onClickLogout }: Props) => {
+export const UserInfo = ({ user, isEditMode = false, onClickLogout }: Props) => {
   const router = useRouter()
 
   return (
       <Flex id="user-information" justifyContent="flex-end" alignItems="center" gap={4}>
         <Text>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
-        <Button onClick={()=>router.push("/edit-profile")}>Edit</Button>
+        {!isEditMode && <Button onClick={()=>router.push("/edit-profile")}>Edit</Button>}
         <Button onClick={onClickLogout}>LogOut</Button>
       </Flex>
   )
