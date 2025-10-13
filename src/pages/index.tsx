@@ -6,7 +6,6 @@ import { PomatoManage } from "@/components/PomatoManage"
 import { Grid, GridItem, Box } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { LOGOUT_CONFIRM_MESSAGE } from "@/constants"
 import { User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
 
@@ -34,24 +33,9 @@ export default function Home() {
     return <div>Loading...</div>
   }
 
-  const onClickLogout = async () => {
-    const ok = confirm(LOGOUT_CONFIRM_MESSAGE)
-    
-    if(ok) {
-      try {
-        await auth.signOut()
-        router.push("/login")
-      } catch (err) {
-        console.error(err)
-      }
-    }
-  }
-
-
-
   return (
     <Box padding={{ mdTo2xl: 8, base: 4 }}>
-      <UserInfo user={loggedUser} onClickLogout={onClickLogout} />
+      <UserInfo user={loggedUser} />
       <Grid justifyItems="center" templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} gap="6">
         <GridItem>
           <PomatoFarm user={loggedUser} />
