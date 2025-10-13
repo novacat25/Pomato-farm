@@ -35,9 +35,9 @@ export default function EditProfile () {
       if (!user) {
         router.push("/login")
       } else {
-        console.log(user)
         setIsLoading(false)
         setLoggedUser(user)
+        if(user.displayName) setFormData({ userName: user.displayName })
       }
     })
 
