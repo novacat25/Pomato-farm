@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from "@/constants"
 import { User } from "firebase/auth"
+import { UserInfo } from "@/components/UserInfo"
 
 
 export default function Home() {
@@ -52,10 +53,7 @@ export default function Home() {
 
   return (
     <Box padding={{ mdTo2xl: 8, base: 4 }}>
-      <Flex id="user-information" justifyContent="flex-end" alignItems="center" gap={4}>
-        <Text>{userName}</Text>
-        <Button onClick={onClickLogout}>LogOut</Button>
-      </Flex>
+      <UserInfo user={loggedUser} onClickLogout={onClickLogout} />
       <Grid justifyItems="center" templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} gap="6">
         <GridItem>
           <PomatoFarm user={loggedUser} />
