@@ -12,10 +12,12 @@ type Props = {
 }
 
 export const UserInfo = ({ user, onClickLogout }: Props) => {
+  const router = useRouter()
+
   return (
       <Flex id="user-information" justifyContent="flex-end" alignItems="center" gap={4}>
         <Text>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
-        <Button onClick={()=>console.log(user)}>Edit</Button>
+        <Button onClick={()=>router.push("/edit-profile")}>Edit</Button>
         <Button onClick={onClickLogout}>LogOut</Button>
       </Flex>
   )
