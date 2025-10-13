@@ -4,9 +4,9 @@ import { auth } from "../utils/firebase"
 import { Box, Button, Flex, Grid, GridItem, Heading, Input, Text } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { User } from "firebase/auth"
+import { updateProfile, User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
-import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from "@/constants"
+import { DEFAULT_DISPLAY_NAME } from "@/constants"
 
 export default function EditProfile () {
   const router = useRouter()
@@ -14,8 +14,9 @@ export default function EditProfile () {
   const [isLoading, setIsLoading] = useState(true)
 
   const initialState = {
-      userName: loggedUser?.displayName ?? "",
+    userName: loggedUser?.displayName ?? "",
   }
+  
   const [formData, setFormData] = useState(initialState)
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,8 +45,20 @@ export default function EditProfile () {
     }, [router])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      console.log(formData.userName)
+    e.preventDefault()
+
+    if (loggedUser) {
+      try {
+        setIsLoading(true)
+        const updateUserNamePayload = formData.userName ? { displayName: formData.userName } : { displayName: DEFAULT_DISPLAY_NAME }
+        await updateProfile(loggedUser, updateUserNamePayload)
+        router.push("/")
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setIsLoading(false)
+      }
+    }
   }
 
   if (isLoading) {
@@ -63,9 +76,13 @@ export default function EditProfile () {
         padding={8}
         marginTop={8}
       >
-        <Heading fontSize="1.5em">닉네임 변경</Heading>
+        <Heading fontSize="1.5em" marginBottom={8}>닉네임 변경</Heading>
         <form onSubmit={onSubmit}>
-          <Grid marginY={4} templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}>
+          <Grid 
+            alignItems="center" 
+            marginY={4} 
+            templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
+          >
             <GridItem>
               <Text fontWeight={600}>UserName</Text>
             </GridItem>
@@ -77,16 +94,25 @@ export default function EditProfile () {
                 value={formData.userName}
                 placeholder={DEFAULT_DISPLAY_NAME}
                 backgroundColor="rgba(255,255,255,0.5)"
-                required
               />
             </GridItem>
           </Grid>
-          <Grid templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}>
+          <Grid 
+            alignItems="center"
+            templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
+          >
             <GridItem>
               <Text fontWeight={600}>Email</Text>
             </GridItem>
             <GridItem>{loggedUser?.email}</GridItem>
           </Grid>
+          <Text 
+            color="tomato" 
+            fontSize="0.8em"
+            marginY={4}
+          >
+            이름을 정하지 않으실 경우 POMATO-FARMER로 고정이 됩니다.
+          </Text>
           <Flex 
             marginTop={4} 
             justifyContent="center" 
