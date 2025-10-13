@@ -3,10 +3,10 @@
 import { auth } from "../utils/firebase"
 import { PomatoFarm } from "@/components/PomatoFarm"
 import { PomatoManage } from "@/components/PomatoManage"
-import { Button, Text, Flex, Grid, GridItem, Box } from "@chakra-ui/react"
+import { Grid, GridItem, Box } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from "@/constants"
+import { LOGOUT_CONFIRM_MESSAGE } from "@/constants"
 import { User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
 
@@ -14,7 +14,6 @@ import { UserInfo } from "@/components/UserInfo"
 export default function Home() {
   const router = useRouter()
   const [loggedUser, setLoggedUser] = useState<User | null>()
-  const [userName, setUserName] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -24,7 +23,6 @@ export default function Home() {
       } else {
         console.log(user)
         setIsLoading(false)
-        user.displayName ? setUserName(user.displayName) : setUserName(DEFAULT_DISPLAY_NAME)
         setLoggedUser(user)
       }
     })

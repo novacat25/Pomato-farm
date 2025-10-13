@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react'
+import { useRouter } from "next/navigation"
 import { Text, Flex, Button } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { DEFAULT_DISPLAY_NAME } from '@/constants'
