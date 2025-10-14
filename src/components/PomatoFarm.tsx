@@ -1,4 +1,4 @@
-import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, SECOND_UNIT } from "@/constants"
+import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
 import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
@@ -10,8 +10,10 @@ type Props = {
 export const PomatoFarm = ({ user }: Props) => {
   const [goalTimer, setGoalTimer] = useState(DEFAULT_MINUTE)
   const [pomoTimer, setPomoTimer] = useState(DEFAULT_POMO_TIMER)
+  const [pomatoCount, setPomatoCount] = useState<number>(1)
   const [isPomatoRunning, setIsPommatoRunning] = useState<boolean>(false)
   const [isPaused, setIsPaused] = useState<boolean>(false)
+  const [isPomatoFinished, setIsPomatoFinished] = useState<boolean>(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const onClick = () => {
@@ -61,6 +63,7 @@ export const PomatoFarm = ({ user }: Props) => {
     }
   }
 
+  
   useEffect(() => {
     if (isPomatoRunning && !isPaused) {
       timerRef.current = setInterval(() => {
@@ -68,6 +71,7 @@ export const PomatoFarm = ({ user }: Props) => {
           if (prevTime <= 1) {
             clearInterval(timerRef.current!)
             setIsPommatoRunning(false)
+            setIsPomatoFinished(true)
             return 0
           }
 
@@ -83,6 +87,13 @@ export const PomatoFarm = ({ user }: Props) => {
     }
   }, [isPomatoRunning, isPaused])
 
+  useEffect(() => {
+    if(isPomatoFinished) {
+      handlePomatoCountUp()
+      setIsPomatoFinished(false)
+    }
+  }, [isPomatoFinished])
+
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
@@ -91,6 +102,20 @@ export const PomatoFarm = ({ user }: Props) => {
       "0"
     )}`
   }  
+
+  const handlePomatoCountUp = () => {
+    console.log("pomatoCount has been increased!")
+    setPomatoCount((prev) => prev + 1)
+  }
+
+  const displayPomatoCount = (pomato: number): string => {
+    let pomatoes = ""
+    for(let i = 1; i< pomato; i++) {
+      pomatoes += POMATO_EMOJI
+    }
+
+    return pomatoes
+  }
 
   return (
     <Flex direction="column" gap={4}>
@@ -135,6 +160,9 @@ export const PomatoFarm = ({ user }: Props) => {
       </Text>
       <Text>
         오늘 파밍한 토마토 수
+      </Text>
+      <Text>
+        {displayPomatoCount(pomatoCount)}
       </Text>
       <Text>
         ToDo List
