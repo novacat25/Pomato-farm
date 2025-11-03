@@ -10,7 +10,7 @@ type Props = {
 export const PomatoFarm = ({ user }: Props) => {
   const [goalTimer, setGoalTimer] = useState(DEFAULT_MINUTE)
   const [pomoTimer, setPomoTimer] = useState(DEFAULT_POMO_TIMER)
-  const [pomatoCount, setPomatoCount] = useState<number>(1)
+  const [pomatoCount, setPomatoCount] = useState<number>(0)
   const [isPomatoRunning, setIsPommatoRunning] = useState<boolean>(false)
   const [isPaused, setIsPaused] = useState<boolean>(false)
   const [isPomatoFinished, setIsPomatoFinished] = useState<boolean>(false)
@@ -110,7 +110,7 @@ export const PomatoFarm = ({ user }: Props) => {
 
   const displayPomatoCount = (pomato: number): string => {
     let pomatoes = ""
-    for(let i = 1; i< pomato; i++) {
+    for(let i = 0; i < pomato; i++) {
       pomatoes += POMATO_EMOJI
     }
 
