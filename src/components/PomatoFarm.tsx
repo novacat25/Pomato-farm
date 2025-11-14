@@ -135,17 +135,18 @@ export const PomatoFarm = ({ user }: Props) => {
   const handlePomatoCountUp = async () => {
     console.log("pomatoCount has been increased!")
     setPomatoCount((prev) => prev + 1)
-    if(user) {
+    if (user) {
       try {
         const increasedPomato = pomatoCount + 1
+        const docRef = doc(db, "pomato", user.uid, "records", formattedDate)
 
-        if(doc(db, "pomato", user.uid, "records", formattedDate)) {
-          await updateDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
+        if(docRef) {
+          await updateDoc(docRef, {
             pomodoroCount: increasedPomato,
             updatedAt: serverTimestamp(),
           })
         } else {
-          await setDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
+          await setDoc(docRef, {
             pomodoroCount: increasedPomato,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
