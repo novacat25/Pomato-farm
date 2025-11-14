@@ -4,13 +4,24 @@ import { Box, Button, Input, Link, Separator, SkeletonCircle, Text } from "@chak
 import { PasswordInput } from "@/components/ui/password-input"
 import { SocialLogin } from "@/components/SocialLogin"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { auth } from "../utils/firebase"
 import { FirebaseError } from "firebase/app"
 import { signInWithEmailAndPassword } from "firebase/auth"
 
 export default function Login() {
   const router = useRouter()
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        router.push("/")
+      }
+    })
+    return () => unsubscribe()
+    }, [router])
+
+
   const [isLoading, setIsLoading] = useState(false)
       
   const initialState = {

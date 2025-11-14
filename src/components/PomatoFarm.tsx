@@ -1,7 +1,9 @@
-import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, SECOND_UNIT } from "@/constants"
+import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
 import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
+import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
+import { db } from "@/utils/firebase"
 
 type Props = {
     user: User | null | undefined
@@ -10,12 +12,16 @@ type Props = {
 export const PomatoFarm = ({ user }: Props) => {
   const [goalTimer, setGoalTimer] = useState(DEFAULT_MINUTE)
   const [pomoTimer, setPomoTimer] = useState(DEFAULT_POMO_TIMER)
+  const [pomatoCount, setPomatoCount] = useState<number>(0)
   const [isPomatoRunning, setIsPommatoRunning] = useState<boolean>(false)
   const [isPaused, setIsPaused] = useState<boolean>(false)
+  const [isPomatoFinished, setIsPomatoFinished] = useState<boolean>(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
+  const today = new Date()
+  const formattedDate = today.toISOString().split('T')[0]
+
   const onClick = () => {
-    console.log(user)
     isPomatoRunning ? handlePause() : handleStart()
   }
 
@@ -60,6 +66,23 @@ export const PomatoFarm = ({ user }: Props) => {
       clearInterval(timerRef.current)
     }
   }
+  
+  const handleFetchTodaysPomato = async () => {
+    if(user) {
+      const docRef = doc(db, "pomato", user.uid, "records", formattedDate)
+      const todayUserPomato = (await getDoc(docRef)).data()
+      
+      if (todayUserPomato && todayUserPomato.pomodoroCount) {
+        setPomatoCount(todayUserPomato.pomodoroCount)
+      } else {
+        setPomatoCount(0)
+      }
+    }
+  }
+
+  useEffect(() => {
+    handleFetchTodaysPomato()
+  }, [])
 
   useEffect(() => {
     if (isPomatoRunning && !isPaused) {
@@ -68,6 +91,7 @@ export const PomatoFarm = ({ user }: Props) => {
           if (prevTime <= 1) {
             clearInterval(timerRef.current!)
             setIsPommatoRunning(false)
+            setIsPomatoFinished(true)
             return 0
           }
 
@@ -83,6 +107,13 @@ export const PomatoFarm = ({ user }: Props) => {
     }
   }, [isPomatoRunning, isPaused])
 
+  useEffect(() => {
+    if(isPomatoFinished) {
+      handlePomatoCountUp()
+      setIsPomatoFinished(false)
+    }
+  }, [isPomatoFinished])
+
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
@@ -91,6 +122,41 @@ export const PomatoFarm = ({ user }: Props) => {
       "0"
     )}`
   }  
+
+  const handlePomatoCountUp = async () => {
+    console.log("pomatoCount has been increased!")
+    setPomatoCount((prev) => prev + 1)
+    if (user) {
+      try {
+        const increasedPomato = pomatoCount + 1
+        const docRef = doc(db, "pomato", user.uid, "records", formattedDate)
+
+        if(docRef) {
+          await updateDoc(docRef, {
+            pomodoroCount: increasedPomato,
+            updatedAt: serverTimestamp(),
+          })
+        } else {
+          await setDoc(docRef, {
+            pomodoroCount: increasedPomato,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          })
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+
+  const displayPomatoCount = (pomato: number): string => {
+    let pomatoes = ""
+    for(let i = 0; i < pomato; i++) {
+      pomatoes += POMATO_EMOJI
+    }
+
+    return pomatoes
+  }
 
   return (
     <Flex direction="column" gap={4}>
@@ -135,6 +201,9 @@ export const PomatoFarm = ({ user }: Props) => {
       </Text>
       <Text>
         오늘 파밍한 토마토 수
+      </Text>
+      <Text>
+        {displayPomatoCount(pomatoCount)}
       </Text>
       <Text>
         ToDo List
