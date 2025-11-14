@@ -1,4 +1,4 @@
-import { DB_COLLECTION, DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
+import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
 import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
@@ -20,13 +20,8 @@ export const PomatoFarm = ({ user }: Props) => {
 
   const today = new Date()
   const formattedDate = today.toISOString().split('T')[0]
-  // const MONTH_INDEX = today.getMonth() + 1
-
-  const DB_DIRECTORY = `${DB_COLLECTION}/${user?.uid}/${formattedDate}`
 
   const onClick = () => {
-    console.log(user)
-    console.log(DB_DIRECTORY)
     isPomatoRunning ? handlePause() : handleStart()
   }
 
@@ -118,10 +113,6 @@ export const PomatoFarm = ({ user }: Props) => {
       setIsPomatoFinished(false)
     }
   }, [isPomatoFinished])
-
-  useEffect(() => {
-    console.log(pomatoCount)
-  }, [pomatoCount])
 
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60)
