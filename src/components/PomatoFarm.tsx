@@ -2,7 +2,7 @@ import { DB_COLLECTION, DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND,
 import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore"
+import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase"
 
 type Props = {
@@ -138,11 +138,19 @@ export const PomatoFarm = ({ user }: Props) => {
     if(user) {
       try {
         const increasedPomato = pomatoCount + 1
-        await setDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
-          pomodoroCount: increasedPomato,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-        })
+
+        if(doc(db, "pomato", user.uid, "records", formattedDate)) {
+          await updateDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
+            pomodoroCount: increasedPomato,
+            updatedAt: serverTimestamp(),
+          })
+        } else {
+          await setDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
+            pomodoroCount: increasedPomato,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          })
+        }
       } catch (e) {
         console.error(e)
       }
