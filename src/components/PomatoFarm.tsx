@@ -140,6 +140,7 @@ export const PomatoFarm = ({ user }: Props) => {
         const increasedPomato = pomatoCount + 1
         await setDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
           pomodoroCount: increasedPomato,
+          createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         })
       } catch (e) {
