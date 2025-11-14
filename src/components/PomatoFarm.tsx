@@ -1,7 +1,9 @@
-import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
+import { DB_COLLECTION, DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
 import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
+import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore"
+import { db } from "@/utils/firebase"
 
 type Props = {
     user: User | null | undefined
@@ -16,8 +18,15 @@ export const PomatoFarm = ({ user }: Props) => {
   const [isPomatoFinished, setIsPomatoFinished] = useState<boolean>(false)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
+  const today = new Date()
+  const formattedDate = today.toISOString().split('T')[0]
+  // const MONTH_INDEX = today.getMonth() + 1
+
+  const DB_DIRECTORY = `${DB_COLLECTION}/${user?.uid}/${formattedDate}`
+
   const onClick = () => {
     console.log(user)
+    console.log(DB_DIRECTORY)
     isPomatoRunning ? handlePause() : handleStart()
   }
 
@@ -62,8 +71,11 @@ export const PomatoFarm = ({ user }: Props) => {
       clearInterval(timerRef.current)
     }
   }
-
   
+  useEffect(() => {
+
+  }, [])
+
   useEffect(() => {
     if (isPomatoRunning && !isPaused) {
       timerRef.current = setInterval(() => {
@@ -94,6 +106,10 @@ export const PomatoFarm = ({ user }: Props) => {
     }
   }, [isPomatoFinished])
 
+  useEffect(() => {
+    console.log(pomatoCount)
+  }, [pomatoCount])
+
   const formatTime = (time: number): string => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
@@ -103,9 +119,19 @@ export const PomatoFarm = ({ user }: Props) => {
     )}`
   }  
 
-  const handlePomatoCountUp = () => {
+  const handlePomatoCountUp = async () => {
     console.log("pomatoCount has been increased!")
     setPomatoCount((prev) => prev + 1)
+    if(user) {
+      try {
+        await setDoc(doc(db, "pomato", user.uid, "records", formattedDate), {
+          pomodoroCount: 4,
+          updatedAt: serverTimestamp(),
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    }
   }
 
   const displayPomatoCount = (pomato: number): string => {
