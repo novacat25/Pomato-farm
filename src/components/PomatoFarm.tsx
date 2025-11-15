@@ -71,9 +71,7 @@ export const PomatoFarm = ({ user }: Props) => {
     if(user) {
       const docRef = doc(db, "pomato", user.uid, "records", formattedDate)
       const todayUserPomato = (await getDoc(docRef)).data()
-      
-      console.log(todayUserPomato)
-      
+
       if (todayUserPomato && todayUserPomato.pomodoroCount) {
         setPomatoCount(todayUserPomato.pomodoroCount)
       } else {
@@ -132,8 +130,14 @@ export const PomatoFarm = ({ user }: Props) => {
       try {
         const increasedPomato = pomatoCount + 1
         const docRef = doc(db, "pomato", user.uid, "records", formattedDate)
-        console.log(docRef)
+        const checkDocRef = (await getDoc(docRef)).data()
 
+        checkDocRef ?
+        await updateDoc(docRef, {
+          pomodoroCount: increasedPomato,
+          updatedAt: serverTimestamp(),
+        })
+        :
         await setDoc(docRef, {
           pomodoroCount: increasedPomato,
           createdAt: serverTimestamp(),
