@@ -13,7 +13,6 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
             if (!user) {
                 router.push("/login")
             } else {
-                console.log(user)
                 setIsLoading(false)
             }
         })

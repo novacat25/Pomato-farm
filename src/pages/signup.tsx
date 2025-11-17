@@ -34,12 +34,11 @@ export default function Signup() {
             router.push("/")
         } catch (err) {
             if (err instanceof FirebaseError) {
-                console.log(err)
+                console.error(err)
                 setError(err.message)
             }
         } finally {
             setIsLoading(false)
-            console.log(formData)
         }
     }
 
