@@ -7,7 +7,6 @@ import { Text, Flex, IconButton, Menu, Portal } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from '@/constants'
 import { LuUser } from "react-icons/lu"
-import { colors } from '@/constants/palette'
 
 type Props = {
   user: User | null | undefined
@@ -36,8 +35,9 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
         justifyContent="flex-end" 
         alignItems="center" 
         gap={4}
+        marginBottom={{ mdTo2xl: 16, base: 4 }}
       >
-        <Text color={colors.primary.main}>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
+        <Text>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
         <Menu.Root>
           <Menu.Trigger asChild>
             <IconButton 
@@ -45,8 +45,6 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
               size="sm" 
               aria-label="user-info"
               variant="outline"
-              color={colors.primary.main}
-              borderColor={colors.primary.main}
             >
               <LuUser />
             </IconButton>
