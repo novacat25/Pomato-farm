@@ -1,10 +1,11 @@
-import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
+import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
+import { Text, Flex, SkeletonCircle, NumberInput, Box, Button, createToaster } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase"
 import { colors } from "@/constants/palette"
+import { toaster, Toaster } from "@/components/ui/toaster"
 
 type Props = {
     user: User | null | undefined
@@ -42,7 +43,11 @@ export const PomatoFarm = ({ user }: Props) => {
       setIsPommatoRunning(true)
       setIsPaused(false)
     } else {
-      console.log("Set the Pomo Timer First!")
+      toaster.create({
+        description: message.valiError.SET_POMOTIME_FIRST,
+        type: "error",
+        closable: true,
+      })
     }
   }
 
@@ -145,6 +150,10 @@ export const PomatoFarm = ({ user }: Props) => {
           updatedAt: serverTimestamp(),
         })
         
+        toaster.create({
+          description: message.success.POMO_FINISHED,
+          type: "success",
+        })
       } catch (e) {
         console.error(e)
       }
@@ -162,6 +171,7 @@ export const PomatoFarm = ({ user }: Props) => {
 
   return (
     <Box gap={4} border="1px solid black">
+      <Toaster />
       <Box
         cursor="pointer"
         display="flex"

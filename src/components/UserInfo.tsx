@@ -5,7 +5,7 @@ import { auth } from "../utils/firebase"
 import { useRouter } from "next/navigation"
 import { Text, Flex, IconButton, Menu, Portal } from "@chakra-ui/react"
 import { User } from "firebase/auth"
-import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from '@/constants'
+import { DEFAULT_DISPLAY_NAME, message } from '@/constants'
 import { LuUser } from "react-icons/lu"
 
 type Props = {
@@ -17,7 +17,7 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
   const router = useRouter()
 
   const onClickLogout = async () => {
-    const ok = confirm(LOGOUT_CONFIRM_MESSAGE)
+    const ok = confirm(message.info.LOGOUT_CONFIRM_MESSAGE)
     
     if(ok) {
       try {
