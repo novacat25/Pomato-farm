@@ -45,10 +45,10 @@ export default function Home() {
         templateColumns={{ mdTo2xl: "repeat(3, 1fr)", base: "auto" }} 
         gap="4"
       >
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ mdTo2xl: 2 }}>
           <PomatoFarm user={loggedUser} />
         </GridItem>
-        <GridItem colSpan={1}>
+        <GridItem colSpan={{ mdTo2xl: 1 }}>
           <PomatoManage />
         </GridItem>
       </Grid>

@@ -7,7 +7,6 @@ export const PomatoManage = () => {
     <Box border="1px solid black">
       <Tabs.Root
         defaultValue="daily"
-        variant="plain"
       >
         <Tabs.List bg="bg.muted" rounded="l3" p="1">
           <Tabs.Trigger value="daily">
