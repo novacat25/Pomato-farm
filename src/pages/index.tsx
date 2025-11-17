@@ -33,9 +33,15 @@ export default function Home() {
   }
 
   return (
-    <Box padding={{ mdTo2xl: 8, base: 4 }}>
+    <Box 
+      marginX={{ mdTo2xl: 16, base: 8 }}
+      marginY={{ mdTo2xl: 8, base: 4 }}
+    >
       <UserInfo user={loggedUser} />
       <Grid 
+        paddingX={4}
+        paddingY={8}
+        border="1px solid black"
         templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} 
         gap="6"
       >

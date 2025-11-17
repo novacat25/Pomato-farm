@@ -207,19 +207,25 @@ export const PomatoFarm = ({ user }: Props) => {
           Reset
         </Button>
       </Flex>
-      }        
+      }
       <Text color={colors.primary.main} fontSize="0.9em">
         주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
       </Text>
-      <Text>
-        오늘 파밍한 토마토 수
-      </Text>
-      <Text>
-        {displayPomatoCount(pomatoCount)}
-      </Text>
-      <Text>
-        ToDo List
-      </Text>
+      <Box
+        display="flex"
+        flexDirection="column"
+        textAlign="left"
+      >
+        <Text>
+          오늘 파밍한 토마토 수
+        </Text>
+        <Text>
+          {displayPomatoCount(pomatoCount)}
+        </Text>
+        <Text>
+          ToDo List
+        </Text>
+      </Box>
     </Flex>
   )
 }

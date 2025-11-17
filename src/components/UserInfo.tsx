@@ -35,7 +35,7 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
         justifyContent="flex-end" 
         alignItems="center" 
         gap={4}
-        marginBottom={{ mdTo2xl: 16, base: 4 }}
+        marginBottom={4}
       >
         <Text>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
         <Menu.Root>
