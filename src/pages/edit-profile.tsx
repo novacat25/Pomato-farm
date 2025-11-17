@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { updateProfile, User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
 import { DEFAULT_DISPLAY_NAME } from "@/constants"
+import { colors } from "@/constants/palette"
 
 export default function EditProfile () {
   const router = useRouter()
@@ -107,7 +108,7 @@ export default function EditProfile () {
             <GridItem>{loggedUser?.email}</GridItem>
           </Grid>
           <Text 
-            color="tomato" 
+            color={colors.primary.main}
             fontSize="0.8em"
             marginY={4}
           >

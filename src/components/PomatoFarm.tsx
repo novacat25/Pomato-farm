@@ -4,6 +4,7 @@ import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase"
+import { colors } from "@/constants/palette"
 
 type Props = {
     user: User | null | undefined
@@ -197,7 +198,7 @@ export const PomatoFarm = ({ user }: Props) => {
       </Flex>
       }
       <Text>{formatTime(pomoTimer)}</Text>        
-      <Text color="tomato" fontSize="0.9em">
+      <Text color={colors.primary.main} fontSize="0.9em">
         주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
       </Text>
       <Text>
