@@ -17,10 +17,10 @@ export const PomatoManage = () => {
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="daily">
-          일일 수확 관리
+          일일 수확 관리 (개발 예정)
         </Tabs.Content>
         <Tabs.Content value="monthly">
-          달별 관리
+          달별 관리 (개발 예정)
         </Tabs.Content>
       </Tabs.Root>
     </Box>

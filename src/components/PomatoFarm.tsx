@@ -166,7 +166,17 @@ export const PomatoFarm = ({ user }: Props) => {
         cursor="pointer"
         borderRadius="50%"
         onClick={onClick}
+        position="relative"
       >
+        <Text
+          fontSize={{ mdTo2xl: 48, base: 24 }}
+          position="absolute"
+          left={{ mdTo2xl: "35%", base: "42%" }}
+          top="42%"
+          zIndex={2}
+        >
+          {formatTime(pomoTimer)}
+        </Text>
         <SkeletonCircle 
           justifySelf="center" 
           size={{ mdTo2xl: 96, base: 48 }} 
@@ -196,8 +206,7 @@ export const PomatoFarm = ({ user }: Props) => {
           Reset
         </Button>
       </Flex>
-      }
-      <Text>{formatTime(pomoTimer)}</Text>        
+      }        
       <Text color={colors.primary.main} fontSize="0.9em">
         주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
       </Text>
