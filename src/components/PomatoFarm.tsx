@@ -161,7 +161,7 @@ export const PomatoFarm = ({ user }: Props) => {
   }
 
   return (
-    <Flex direction="column" gap={4}>
+    <Box gap={4} border="1px solid black">
       <Box
         cursor="pointer"
         display="flex"
@@ -226,6 +226,6 @@ export const PomatoFarm = ({ user }: Props) => {
           ToDo List
         </Text>
       </Box>
-    </Flex>
+    </Box>
   )
 }

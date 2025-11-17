@@ -4,8 +4,8 @@ import { LuCalendarDays, LuUser } from "react-icons/lu"
 
 export const PomatoManage = () => {
   return (
-    <Box>
-      <Tabs.Root      
+    <Box border="1px solid black">
+      <Tabs.Root
         defaultValue="daily"
         variant="plain"
       >

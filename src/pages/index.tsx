@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <Box 
-      marginX={{ mdTo2xl: 16, base: 8 }}
+      marginX={{ mdTo2xl: 16, base: 4 }}
       marginY={{ mdTo2xl: 8, base: 4 }}
     >
       <UserInfo user={loggedUser} />
@@ -42,13 +42,13 @@ export default function Home() {
         paddingX={4}
         paddingY={8}
         border="1px solid black"
-        templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} 
-        gap="6"
+        templateColumns={{ mdTo2xl: "repeat(3, 1fr)", base: "auto" }} 
+        gap="4"
       >
-        <GridItem>
+        <GridItem colSpan={2}>
           <PomatoFarm user={loggedUser} />
         </GridItem>
-        <GridItem>
+        <GridItem colSpan={1}>
           <PomatoManage />
         </GridItem>
       </Grid>
