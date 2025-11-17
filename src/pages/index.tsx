@@ -35,7 +35,10 @@ export default function Home() {
   return (
     <Box padding={{ mdTo2xl: 8, base: 4 }}>
       <UserInfo user={loggedUser} />
-      <Grid justifyItems="center" templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} gap="6">
+      <Grid 
+        templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} 
+        gap="6"
+      >
         <GridItem>
           <PomatoFarm user={loggedUser} />
         </GridItem>

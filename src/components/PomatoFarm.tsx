@@ -164,6 +164,8 @@ export const PomatoFarm = ({ user }: Props) => {
     <Flex direction="column" gap={4}>
       <Box
         cursor="pointer"
+        display="flex"
+        justifyContent="center"
         borderRadius="50%"
         onClick={onClick}
         position="relative"
@@ -171,8 +173,7 @@ export const PomatoFarm = ({ user }: Props) => {
         <Text
           fontSize={{ mdTo2xl: 48, base: 24 }}
           position="absolute"
-          left={{ mdTo2xl: "35%", base: "42%" }}
-          top="42%"
+          top="40%"
           zIndex={2}
         >
           {formatTime(pomoTimer)}
