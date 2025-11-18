@@ -41,19 +41,20 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
         id="user-information"
         justifyContent="flex-end"
         alignItems="center"
-        gap={4}
-        marginBottom={4}
+        gap={2}
+        marginBottom={2.5}
       >
         <Text>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
         <Menu.Root>
           <Menu.Trigger asChild>
             <IconButton
+              backgroundColor={colors.primary.main}
               rounded="full"
               size="sm"
               aria-label="user-info"
               variant="outline"
             >
-              <LuUser />
+              <LuUser color="white" />
             </IconButton>
           </Menu.Trigger>
           <Menu.Positioner>

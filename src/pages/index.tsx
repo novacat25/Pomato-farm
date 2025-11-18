@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import { User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
 import { LoadingDisplay } from "@/components/Loading"
+import { colors } from "@/constants/palette"
 
 
 export default function Home() {
@@ -34,15 +35,17 @@ export default function Home() {
   }
 
   return (
-    <Box 
-      marginX={{ mdTo2xl: 16, base: 4 }}
-      marginY={{ mdTo2xl: 8, base: 4 }}
+    <Box
+      paddingX={{ mdTo2xl: 16, base: 4 }}
+      paddingY={{ mdTo2xl: 8, base: 4 }}
     >
       <UserInfo user={loggedUser} />
       <Grid 
         paddingX={4}
         paddingY={8}
-        border="1px solid black"
+        border={`1px solid ${colors.background.lightWood}`}
+        backgroundColor={colors.background.lightWood}
+        borderRadius={32}
         templateColumns={{ mdTo2xl: "repeat(3, 1fr)", base: "auto" }} 
         gap="4"
       >
