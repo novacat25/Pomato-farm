@@ -8,6 +8,7 @@ import { updateProfile, User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
 import { DEFAULT_DISPLAY_NAME } from "@/constants"
 import { colors } from "@/constants/palette"
+import { LoadingDisplay } from "@/components/Loading"
 
 export default function EditProfile () {
   const router = useRouter()
@@ -63,7 +64,7 @@ export default function EditProfile () {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingDisplay />
   }
 
   return (

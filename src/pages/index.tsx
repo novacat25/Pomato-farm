@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { User } from "firebase/auth"
 import { UserInfo } from "@/components/UserInfo"
+import { LoadingDisplay } from "@/components/Loading"
 
 
 export default function Home() {
@@ -29,7 +30,7 @@ export default function Home() {
     }, [router])
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <LoadingDisplay />
   }
 
   return (
