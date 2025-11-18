@@ -130,7 +130,6 @@ export const PomatoFarm = ({ user }: Props) => {
   }  
 
   const handlePomatoCountUp = async () => {
-    console.log("pomatoCount has been increased!")
     setPomatoCount((prev) => prev + 1)
     if (user) {
       try {
