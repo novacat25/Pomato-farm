@@ -195,34 +195,36 @@ export const PomatoFarm = ({ user }: Props) => {
           size={{ mdTo2xl: 96, base: 48 }} 
         />
       </Box>
-      {!isPomatoRunning && 
-      <Flex justifyContent="center" gap={4}>
-        <NumberInput.Root 
-          width="50%" 
-          value={goalTimer}
-          onValueChange={(e) => {
-            setGoalTimer(e.value)
-            setPomoTimer(DEFAULT_POMO_TIMER)
-          }}
-          disabled={isPomatoRunning}
-          min={15} 
-          max={45}
-          allowMouseWheel
-        >
-          <NumberInput.Control />
-          <NumberInput.Input />
-        </NumberInput.Root>
-        <Button onClick={handleSetGoalTimer}>
-          Set
-        </Button>
-        <Button onClick={handleReset}>
-          Reset
-        </Button>
-      </Flex>
-      }
-      <Text color={colors.primary.main} fontSize="0.9em">
-        주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
-      </Text>
+      <Box>
+        {!isPomatoRunning && 
+        <Flex justifyContent="center" gap={4}>
+          <NumberInput.Root 
+            width="50%" 
+            value={goalTimer}
+            onValueChange={(e) => {
+              setGoalTimer(e.value)
+              setPomoTimer(DEFAULT_POMO_TIMER)
+            }}
+            disabled={isPomatoRunning}
+            min={15} 
+            max={45}
+            allowMouseWheel
+          >
+            <NumberInput.Control />
+            <NumberInput.Input />
+          </NumberInput.Root>
+          <Button onClick={handleSetGoalTimer}>
+            Set
+          </Button>
+          <Button onClick={handleReset}>
+            Reset
+          </Button>
+        </Flex>
+        }
+        <Text color={colors.primary.main} fontSize="0.9em">
+          주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
+        </Text>
+      </Box>
       <Box
         display="flex"
         flexDirection="column"
