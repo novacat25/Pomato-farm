@@ -175,6 +175,8 @@ export const PomatoFarm = ({ user }: Props) => {
       <Box
         cursor="pointer"
         display="flex"
+        maxWidth="fit-content"
+        justifySelf="center"
         justifyContent="center"
         borderRadius="50%"
         onClick={onClick}
