@@ -39,6 +39,7 @@ export default function EditProfile () {
       } else {
         setIsLoading(false)
         setLoggedUser(user)
+        console.log(user)
         if(user.displayName) setFormData({ userName: user.displayName })
       }
     })
@@ -67,7 +68,7 @@ export default function EditProfile () {
     return <LoadingDisplay />
   }
 
-  return (
+  return loggedUser && (
     <Box
       marginX={{ mdTo2xl: 8, base: 0 }}
       paddingX={{ mdTo2xl: 16, base: 4 }}
@@ -82,60 +83,101 @@ export default function EditProfile () {
         paddingY={8}
         border={`1px solid ${colors.background.lightWood}`}
         backgroundColor={colors.background.lightWood}
-        borderRadius={24}
+        borderRadius={16}
       >
         <Heading
           textAlign="center"
-          fontSize={42}
+          fontSize={36}
           color={colors.primary.main}
         >
-          회원 정보 변경
+          회원 정보 확인 및 변경
         </Heading>
-        <form onSubmit={onSubmit}>
-          <Grid 
-            alignItems="center" 
-            marginY={4} 
-            templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
-          >
-            <GridItem>
-              <Text fontWeight={600}>UserName</Text>
-            </GridItem>
-            <GridItem>
-              <Input
-                id="user-name" 
-                name="userName" 
-                onChange={onChange}
-                value={formData.userName}
-                placeholder={DEFAULT_DISPLAY_NAME}
-                backgroundColor="rgba(255,255,255,0.5)"
-              />
-            </GridItem>
-          </Grid>
-          <Grid 
-            alignItems="center"
-            templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
-          >
-            <GridItem>
-              <Text fontWeight={600}>Email</Text>
-            </GridItem>
-            <GridItem>{loggedUser?.email}</GridItem>
-          </Grid>
-          <Text 
-            color={colors.primary.main}
-            fontSize="0.8em"
-            marginY={4}
-          >
-            이름을 정하지 않으실 경우 POMATO-FARMER로 고정이 됩니다.
-          </Text>
-          <Flex 
-            marginTop={4} 
-            justifyContent="center" 
-            gap={8}
-          >
-            <Button disabled={isLoading} type="submit">확인</Button>
-            <Button onClick={()=>router.push("/")}>취소</Button>
-          </Flex>
-        </form>
+        <Box
+          backgroundColor={colors.background.white}
+          padding={4}
+          marginTop={8}
+          marginX={2}
+          borderRadius={16}
+        >
+          <form onSubmit={onSubmit}>
+            <Grid 
+              alignItems="center" 
+              templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
+            >
+              <GridItem>
+                <Text fontWeight={600}>표시 닉네임</Text>
+              </GridItem>
+              <GridItem>
+                <Input
+                  id="user-name" 
+                  name="userName" 
+                  onChange={onChange}
+                  value={formData.userName}
+                  placeholder={DEFAULT_DISPLAY_NAME}
+                  backgroundColor="rgba(255,255,255,0.5)"
+                />
+              </GridItem>
+            </Grid>
+            <Text 
+              color={colors.primary.main}
+              fontSize="0.8em"
+              marginY={2}
+            >
+              ※ 이름을 정하지 않으실 경우 POMATO-FARMER로 고정이 됩니다.
+            </Text>
+            <Grid 
+              alignItems="center"
+              templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
+              marginBottom={2}
+            >
+              <GridItem>
+                <Text fontWeight={600}>Email</Text>
+              </GridItem>
+              <GridItem>{loggedUser.email}</GridItem>
+            </Grid>
+            <Grid 
+              alignItems="center"
+              templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
+              marginBottom={2}
+            >
+              <GridItem>
+                <Text fontWeight={600}>회원 생성 일자</Text>
+              </GridItem>
+              <GridItem>{loggedUser.metadata.creationTime}</GridItem>
+            </Grid>
+            <Grid 
+              alignItems="center"
+              templateColumns={{ mdTo2xl: "repeat(2,1fr)" }}
+              marginBottom={2}
+            >
+              <GridItem>
+                <Text fontWeight={600}>마지막 로그인 일자</Text>
+              </GridItem>
+              <GridItem>{loggedUser.metadata.lastSignInTime}</GridItem>
+            </Grid>            
+            <Flex 
+              marginTop={4} 
+              justifyContent="center" 
+              gap={4}
+            >
+              <Button
+                backgroundColor={colors.button.primary} 
+                className="pomato-button"
+                disabled={isLoading} 
+                type="submit"
+              >
+                확인
+              </Button>
+              <Button 
+                backgroundColor={colors.button.secondary} 
+                className="pomato-button"
+                onClick={()=>router.push("/")}
+              >
+                취소
+              </Button>
+            </Flex>
+          </form>
+        </Box>
       </Box>
     </Box>
   )

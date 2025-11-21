@@ -101,7 +101,7 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
                 </Button>
               </Dialog.ActionTrigger>
               <Dialog.ActionTrigger asChild>
-                <Button variant="outline">아니오</Button>
+                <Button backgroundColor={colors.primary.secondary}>아니오</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
             <Dialog.CloseTrigger asChild>
