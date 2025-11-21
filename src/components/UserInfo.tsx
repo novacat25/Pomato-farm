@@ -44,7 +44,12 @@ export const UserInfo = ({ user, isEditMode = false }: Props) => {
         gap={2}
         marginBottom={2.5}
       >
-        <Text>{user?.displayName ?? DEFAULT_DISPLAY_NAME}</Text>
+        <Text>
+          안녕하세요, &nbsp; 
+          <span className="user-name">{user?.displayName ?? DEFAULT_DISPLAY_NAME}</span>
+          &nbsp;님
+        </Text>
+        
         <Menu.Root>
           <Menu.Trigger asChild>
             <IconButton

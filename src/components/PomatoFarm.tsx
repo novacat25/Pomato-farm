@@ -169,9 +169,15 @@ export const PomatoFarm = ({ user }: Props) => {
   }
 
   return (
-    <Box gap={4} border="1px solid black">
+    <Box 
+      gap={4} 
+      padding={4}
+      border={`0.75px solid ${colors.background.wood}`}
+      borderRadius={8}
+    >
       <Toaster />
       <Box
+        id="pomo-timer"
         cursor="pointer"
         display="flex"
         maxWidth="fit-content"
@@ -180,6 +186,7 @@ export const PomatoFarm = ({ user }: Props) => {
         borderRadius="50%"
         onClick={onClick}
         position="relative"
+        marginY={8}
       >
         <Text
           fontSize={{ mdTo2xl: 48, base: 24 }}
@@ -196,15 +203,17 @@ export const PomatoFarm = ({ user }: Props) => {
       </Box>
       <Box>
         {!isPomatoRunning && 
-        <Flex justifyContent="center" gap={4}>
+        <Flex justifyContent="center" gap={4} paddingX={4}>
           <NumberInput.Root 
-            width="50%" 
+            width="50%"
+            maxWidth="50%" 
             value={goalTimer}
             onValueChange={(e) => {
               setGoalTimer(e.value)
               setPomoTimer(DEFAULT_POMO_TIMER)
             }}
             disabled={isPomatoRunning}
+            backgroundColor={colors.background.white}
             min={15} 
             max={45}
             allowMouseWheel
@@ -212,10 +221,10 @@ export const PomatoFarm = ({ user }: Props) => {
             <NumberInput.Control />
             <NumberInput.Input />
           </NumberInput.Root>
-          <Button onClick={handleSetGoalTimer}>
+          <Button backgroundColor={colors.button.primary} onClick={handleSetGoalTimer}>
             Set
           </Button>
-          <Button onClick={handleReset}>
+          <Button backgroundColor={colors.button.secondary} onClick={handleReset}>
             Reset
           </Button>
         </Flex>

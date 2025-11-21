@@ -3,7 +3,7 @@
 import { auth } from "../utils/firebase"
 import { PomatoFarm } from "@/components/PomatoFarm"
 import { PomatoManage } from "@/components/PomatoManage"
-import { Grid, GridItem, Box } from "@chakra-ui/react"
+import { Grid, GridItem, Box, Heading } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { User } from "firebase/auth"
@@ -40,12 +40,23 @@ export default function Home() {
       paddingY={{ mdTo2xl: 8, base: 4 }}
     >
       <UserInfo user={loggedUser} />
-      <Grid 
+      <Box
         paddingX={4}
         paddingY={8}
         border={`1px solid ${colors.background.lightWood}`}
         backgroundColor={colors.background.lightWood}
         borderRadius={32}
+      >
+        <Heading
+          textAlign="center"
+          fontSize={42}
+          color={colors.primary.main}
+        >
+          Pomato Farm
+        </Heading>
+      <Grid 
+        paddingX={4}
+        paddingY={8}
         templateColumns={{ mdTo2xl: "repeat(3, 1fr)", base: "auto" }} 
         gap="4"
       >
@@ -56,6 +67,7 @@ export default function Home() {
           <PomatoManage />
         </GridItem>
       </Grid>
+      </Box>
     </Box>
   )
 }

@@ -1,10 +1,16 @@
 import React from 'react'
 import { Box, Tabs } from "@chakra-ui/react"
 import { LuCalendarDays, LuUser } from "react-icons/lu"
+import { colors } from '@/constants/palette'
 
 export const PomatoManage = () => {
   return (
-    <Box height="100%" border="1px solid black">
+    <Box 
+      height="100%"
+      padding={4}
+      border={`0.75px solid ${colors.background.wood}`}
+      borderRadius={8}      
+    >
       <Tabs.Root
         defaultValue="daily"
       >
