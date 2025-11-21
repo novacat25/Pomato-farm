@@ -2,7 +2,7 @@
 
 import { Box, Button, Input, Link, Separator, SkeletonCircle, Text } from "@chakra-ui/react"
 import { PasswordInput } from "@/components/ui/password-input"
-import { SocialLogin } from "@/components/SocialLogin"
+import { SocialLogin } from "@/components/page-components/SocialLogin"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { auth } from "../utils/firebase"

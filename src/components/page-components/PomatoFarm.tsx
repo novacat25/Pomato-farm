@@ -226,6 +226,7 @@ export const PomatoFarm = ({ user }: Props) => {
             <NumberInput.Input />
           </NumberInput.Root>
           <Button 
+            className="pomato-button"
             borderRadius={8} 
             backgroundColor={colors.button.primary} 
             onClick={handleSetGoalTimer}
@@ -233,6 +234,7 @@ export const PomatoFarm = ({ user }: Props) => {
             Set
           </Button>
           <Button 
+            className="pomato-button"
             borderRadius={8} 
             backgroundColor={colors.button.secondary} 
             onClick={handleReset}

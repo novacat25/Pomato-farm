@@ -25,6 +25,10 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+.pomato-button:hover {
+  opacity: 0.8;
+}
+
 .user-name {
   font-weight: 600;
 }

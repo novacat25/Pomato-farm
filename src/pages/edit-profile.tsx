@@ -5,7 +5,7 @@ import { Box, Button, Flex, Grid, GridItem, Heading, Input, Text } from "@chakra
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { updateProfile, User } from "firebase/auth"
-import { UserInfo } from "@/components/UserInfo"
+import { UserInfo } from "@/components/page-components/UserInfo"
 import { DEFAULT_DISPLAY_NAME } from "@/constants"
 import { colors } from "@/constants/palette"
 import { LoadingDisplay } from "@/components/Loading"
@@ -68,17 +68,29 @@ export default function EditProfile () {
   }
 
   return (
-    <Box padding={{ mdTo2xl: 8, base: 4 }}>
+    <Box
+      marginX={{ mdTo2xl: 8, base: 0 }}
+      paddingX={{ mdTo2xl: 16, base: 4 }}
+      paddingY={{ mdTo2xl: 8, base: 4 }}
+    >
       <UserInfo
         isEditMode={true} 
         user={loggedUser} 
       />
-      <Box 
-        background="lightgrey" 
-        padding={8}
-        marginTop={8}
+      <Box
+        paddingX={{ mdTo2xl: 2, base: 0 }}
+        paddingY={8}
+        border={`1px solid ${colors.background.lightWood}`}
+        backgroundColor={colors.background.lightWood}
+        borderRadius={24}
       >
-        <Heading fontSize="1.5em" marginBottom={8}>닉네임 변경</Heading>
+        <Heading
+          textAlign="center"
+          fontSize={42}
+          color={colors.primary.main}
+        >
+          회원 정보 변경
+        </Heading>
         <form onSubmit={onSubmit}>
           <Grid 
             alignItems="center" 

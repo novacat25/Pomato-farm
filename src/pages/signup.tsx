@@ -2,7 +2,7 @@
 
 import { Box, Button, Field, Fieldset, Input, Separator, SkeletonCircle, Text } from "@chakra-ui/react"
 import { PasswordInput } from "@/components/ui/password-input"
-import { SocialSignup } from "@/components/SocialSignup"
+import { SocialSignup } from "@/components/page-components/SocialSignup"
 import { useState } from "react"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "../utils/firebase"

@@ -1,13 +1,13 @@
 "use client"
 
 import { auth } from "../utils/firebase"
-import { PomatoFarm } from "@/components/PomatoFarm"
-import { PomatoManage } from "@/components/PomatoManage"
+import { PomatoFarm } from "@/components/page-components/PomatoFarm"
+import { PomatoManage } from "@/components/page-components/PomatoManage"
 import { Grid, GridItem, Box, Heading } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { User } from "firebase/auth"
-import { UserInfo } from "@/components/UserInfo"
+import { UserInfo } from "@/components/page-components/UserInfo"
 import { LoadingDisplay } from "@/components/Loading"
 import { colors } from "@/constants/palette"
 

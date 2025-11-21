@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { auth } from "../utils/firebase"
+import { auth } from "../../utils/firebase"
 import { useRouter } from "next/navigation"
 import {
   Text,
