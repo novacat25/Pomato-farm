@@ -1,5 +1,5 @@
 import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, SkeletonCircle, NumberInput, Box, Button, createToaster } from "@chakra-ui/react"
+import { Text, Flex, SkeletonCircle, NumberInput, Box, Button, createToaster, Image } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
@@ -180,7 +180,6 @@ export const PomatoFarm = ({ user }: Props) => {
         id="pomo-timer"
         cursor="pointer"
         display="flex"
-        maxWidth="fit-content"
         justifySelf="center"
         justifyContent="center"
         borderRadius="50%"
@@ -191,15 +190,13 @@ export const PomatoFarm = ({ user }: Props) => {
         <Text
           fontSize={{ mdTo2xl: 48, base: 24 }}
           position="absolute"
-          top="40%"
+          top={{ mdTo2xl: "50%", base: "55%" }} 
           zIndex={2}
+          color={colors.text.lightWhite}
         >
           {formatTime(pomoTimer)}
         </Text>
-        <SkeletonCircle 
-          justifySelf="center" 
-          size={{ mdTo2xl: 96, base: 48 }} 
-        />
+        <Image borderRadius="50%" src="pomato.png" />
       </Box>
       <Box>
         {!isPomatoRunning && 

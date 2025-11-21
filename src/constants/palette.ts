@@ -9,6 +9,8 @@ export const colors = {
   },
   text: {
     main: "#087808",
+    white: "#FFFFFF",
+    lightWhite: "#F5F5F5"
   },
   background: {
     main: "#FAF7F2",
