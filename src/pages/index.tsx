@@ -41,7 +41,7 @@ export default function Home() {
     >
       <UserInfo user={loggedUser} />
       <Box
-        paddingX={4}
+        paddingX={{ mdTo2xl: 2, base: 0 }}
         paddingY={8}
         border={`1px solid ${colors.background.lightWood}`}
         backgroundColor={colors.background.lightWood}
