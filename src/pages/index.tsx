@@ -46,7 +46,7 @@ export default function Home() {
         paddingY={8}
         border={`1px solid ${colors.background.lightWood}`}
         backgroundColor={colors.background.lightWood}
-        borderRadius={32}
+        borderRadius={24}
       >
         <Heading
           textAlign="center"

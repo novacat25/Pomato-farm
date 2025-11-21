@@ -1,5 +1,5 @@
 import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, NumberInput, Box, Button, createToaster, Image } from "@chakra-ui/react"
+import { Text, Flex, NumberInput, Box, Button, createToaster, Image, Heading } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
@@ -172,9 +172,8 @@ export const PomatoFarm = ({ user }: Props) => {
     <Box 
       gap={4} 
       padding={4}
-      border={`0.75px solid ${colors.border.wood}`}
       backgroundColor={colors.background.main}
-      borderRadius={8}
+      borderRadius={16}
     >
       <Toaster />
       <Box
@@ -203,11 +202,12 @@ export const PomatoFarm = ({ user }: Props) => {
       <Box
         display="flex"
         flexDirection="column"
+        gap={2}
         alignItems="center"
       >
         {!isPomatoRunning && 
         <Flex 
-          gap={4} 
+          gap={2} 
         >
           <NumberInput.Root 
             value={goalTimer}
@@ -216,6 +216,7 @@ export const PomatoFarm = ({ user }: Props) => {
               setPomoTimer(DEFAULT_POMO_TIMER)
             }}
             disabled={isPomatoRunning}
+            borderRadius={8}
             backgroundColor={colors.background.white}
             min={15} 
             max={45}
@@ -224,10 +225,18 @@ export const PomatoFarm = ({ user }: Props) => {
             <NumberInput.Control />
             <NumberInput.Input />
           </NumberInput.Root>
-          <Button backgroundColor={colors.button.primary} onClick={handleSetGoalTimer}>
+          <Button 
+            borderRadius={8} 
+            backgroundColor={colors.button.primary} 
+            onClick={handleSetGoalTimer}
+          >
             Set
           </Button>
-          <Button backgroundColor={colors.button.secondary} onClick={handleReset}>
+          <Button 
+            borderRadius={8} 
+            backgroundColor={colors.button.secondary} 
+            onClick={handleReset}
+          >
             Reset
           </Button>
         </Flex>
@@ -245,15 +254,54 @@ export const PomatoFarm = ({ user }: Props) => {
         flexDirection="column"
         textAlign="left"
       >
-        <Text>
-          오늘 파밍한 토마토 수
-        </Text>
-        <Text>
-          {displayPomatoCount(pomatoCount)}
-        </Text>
-        <Text>
-          ToDo List
-        </Text>
+      <Box
+        id="today-record"
+        backgroundColor={colors.background.white}
+        borderRadius={16}
+        marginTop={8}
+        padding={4}
+      >
+        <Heading color={colors.text.tomatoGreen}>
+          📝 오늘의 기록
+        </Heading>
+        <Box
+          id="todays-tomato"
+          marginBottom={4}
+        >
+          <Text fontWeight={600}>
+          🚜 오늘 수확한 토마토 수
+          </Text>
+          <Text>
+            {displayPomatoCount(pomatoCount)}
+          </Text>
+        </Box>
+        <Box
+          id="todays-tomato"
+          marginBottom={4}
+        >
+          <Text fontWeight={600}>
+          ⏱️ 오늘 집중 시간
+          </Text>
+          <Text>
+            시간
+          </Text>
+        </Box>        
+        <Box
+          id="todo-list"
+          backgroundColor={colors.background.lightWood}
+          padding={2}
+          borderRadius={8}
+        >
+          <Text fontWeight={600}>
+            ToDo List (자유 기록)
+          </Text>
+          <Box
+            backgroundColor={colors.background.main}
+          >
+            <Text>개발 예정</Text>
+          </Box>
+        </Box>
+      </Box>
       </Box>
     </Box>
   )

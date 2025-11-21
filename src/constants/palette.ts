@@ -12,13 +12,14 @@ export const colors = {
   },
   text: {
     main: "#087808",
+    tomatoGreen: "#087808",
     notice: "#FF6347",
     white: "#FFFFFF",
     lightWhite: "#F5F5F5"
   },
   background: {
     main: "#FAF7F2",
-    wood: "#eed8b4",
+    wood: "#e4c28a",
     lightWood: "#f5e7d3",
     darkwood: "#5C4033",
     tomatoGreen: "#4abe4a",

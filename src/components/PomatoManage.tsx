@@ -7,7 +7,6 @@ export const PomatoManage = () => {
   return (
     <Box 
       height="100%"
-      border={`0.75px solid ${colors.border.wood}`}
       borderRadius={8}      
     >
       <Tabs.Root
