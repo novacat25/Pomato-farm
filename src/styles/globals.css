@@ -28,3 +28,9 @@ body {
 .user-name {
   font-weight: 600;
 }
+
+.only-pc {
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}

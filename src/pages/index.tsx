@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <Box
-      marginX={{ mdTo2xl: 32, base: 0 }}
+      marginX={{ mdTo2xl: 8, base: 0 }}
       paddingX={{ mdTo2xl: 16, base: 4 }}
       paddingY={{ mdTo2xl: 8, base: 4 }}
     >
@@ -53,7 +53,7 @@ export default function Home() {
           fontSize={42}
           color={colors.primary.main}
         >
-          Pomato Farm
+          🌱 Pomato Farm
         </Heading>
       <Grid 
         paddingX={4}

@@ -7,14 +7,19 @@ export const PomatoManage = () => {
   return (
     <Box 
       height="100%"
-      padding={4}
-      border={`0.75px solid ${colors.background.wood}`}
+      border={`0.75px solid ${colors.border.wood}`}
       borderRadius={8}      
     >
       <Tabs.Root
         defaultValue="daily"
+        backgroundColor={colors.background.main}
+        height="100%"
+        borderRadius={8}
       >
-        <Tabs.List bg="bg.muted" rounded="l3" p="1">
+        <Tabs.List 
+          bg={colors.background.wood}         
+          borderRadius={8}
+        >
           <Tabs.Trigger value="daily">
             <LuUser />
             Daily
@@ -24,10 +29,10 @@ export const PomatoManage = () => {
             Monthly
           </Tabs.Trigger>
         </Tabs.List>
-        <Tabs.Content value="daily">
+        <Tabs.Content padding={2} value="daily">
           일일 수확 관리 (개발 예정)
         </Tabs.Content>
-        <Tabs.Content value="monthly">
+        <Tabs.Content padding={2} value="monthly">
           달별 관리 (개발 예정)
         </Tabs.Content>
       </Tabs.Root>

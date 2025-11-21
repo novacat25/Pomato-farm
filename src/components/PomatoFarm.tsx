@@ -1,5 +1,5 @@
 import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, SkeletonCircle, NumberInput, Box, Button, createToaster, Image } from "@chakra-ui/react"
+import { Text, Flex, NumberInput, Box, Button, createToaster, Image } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
@@ -172,7 +172,8 @@ export const PomatoFarm = ({ user }: Props) => {
     <Box 
       gap={4} 
       padding={4}
-      border={`0.75px solid ${colors.background.wood}`}
+      border={`0.75px solid ${colors.border.wood}`}
+      backgroundColor={colors.background.main}
       borderRadius={8}
     >
       <Toaster />
@@ -185,11 +186,12 @@ export const PomatoFarm = ({ user }: Props) => {
         borderRadius="50%"
         onClick={onClick}
         position="relative"
-        marginY={8}
+        marginBottom={8}
       >
         <Text
           fontSize={{ mdTo2xl: 48, base: 24 }}
           position="absolute"
+          fontWeight={600}
           top={{ mdTo2xl: "50%", base: "55%" }} 
           zIndex={2}
           color={colors.text.lightWhite}
@@ -198,12 +200,16 @@ export const PomatoFarm = ({ user }: Props) => {
         </Text>
         <Image borderRadius="50%" src="pomato.png" />
       </Box>
-      <Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
         {!isPomatoRunning && 
-        <Flex justifyContent="center" gap={4} paddingX={4}>
+        <Flex 
+          gap={4} 
+        >
           <NumberInput.Root 
-            width="50%"
-            maxWidth="50%" 
             value={goalTimer}
             onValueChange={(e) => {
               setGoalTimer(e.value)
@@ -226,8 +232,12 @@ export const PomatoFarm = ({ user }: Props) => {
           </Button>
         </Flex>
         }
-        <Text color={colors.primary.main} fontSize="0.9em">
-          주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
+        <Text 
+          color={colors.primary.main} 
+          fontSize="0.9em"
+          textAlign="center"
+        >
+          주의! 일시정지 후 목표 시간을 바꾸시면<br className="only-pc" /> 타이머가 초기화됩니다.
         </Text>
       </Box>
       <Box
