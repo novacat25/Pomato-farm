@@ -94,7 +94,8 @@ export default function EditProfile () {
         </Heading>
         <Box
           backgroundColor={colors.background.white}
-          padding={4}
+          paddingX={{ mdTo2xl: 32, base: 4 }}
+          paddingY={4}
           marginTop={8}
           marginX={2}
           borderRadius={16}

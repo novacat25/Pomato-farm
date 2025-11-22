@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Button, Field, Fieldset, Input, Separator, SkeletonCircle, Text } from "@chakra-ui/react"
+import { Box, Button, Field, Fieldset, Input, Separator, Link, Text } from "@chakra-ui/react"
 import { PasswordInput } from "@/components/ui/password-input"
 import { SocialSignup } from "@/components/page-components/SocialSignup"
 import { useState } from "react"
@@ -9,6 +9,8 @@ import { auth } from "../utils/firebase"
 import { FirebaseError } from "firebase/app"
 import { useRouter } from "next/router"
 import { DEFAULT_DISPLAY_NAME } from "@/constants"
+import { PomatoImage } from "@/components/shared/PomatoImage"
+import { colors } from "@/constants/palette"
 
 export default function Signup() {
     const router = useRouter()
@@ -54,16 +56,25 @@ export default function Signup() {
     }
 
   return (
-    <section>
-        <Box 
-            background="lightgrey" 
-            paddingX={8}
-            paddingTop={8}
-            paddingBottom={16}
-            margin={8}
+    <Box
+      marginX={{ mdTo2xl: 8, base: 0 }}
+      paddingX={{ mdTo2xl: 16, base: 4 }}
+      paddingY={{ mdTo2xl: 8, base: 4 }}
+    >
+        <Box
+            paddingX={{ mdTo2xl: 2, base: 0 }}
+            paddingY={8}
+            border={`1px solid ${colors.background.lightWood}`}
+            backgroundColor={colors.background.lightWood}
+            borderRadius={16}
         >
             <Button>서비스 소개</Button>
-            <SkeletonCircle justifySelf="center" size={{ mdTo2xl: 96, base: 48 }} />
+            <Box 
+              display="flex"
+              justifyContent="center"
+            >
+              <PomatoImage />
+            </Box>
             <Text textAlign="center">당신의 생산성을 위한 토마토 농사</Text>
             <form onSubmit={onSubmit}>
                 <Fieldset.Root>
@@ -97,12 +108,14 @@ export default function Signup() {
                     </Fieldset.Content>
                     <Button type="submit">Sign up</Button>
                 </Fieldset.Root>
-                <Text>계정이 있으신가요? 로그인</Text>
+                <Text>
+                    계정이 있으신가요? <Link href="/login">로그인</Link>
+                </Text>
             </form>
             {error !== "" ? <Text color="red" fontWeight={600}>{error}</Text> : null}
             <Separator marginY={8} />
             <SocialSignup />
         </Box>
-    </section>
+    </Box>
   )
 }

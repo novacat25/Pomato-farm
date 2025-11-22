@@ -1,11 +1,12 @@
 import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, NumberInput, Box, Button, createToaster, Image, Heading } from "@chakra-ui/react"
+import { Text, Flex, NumberInput, Box, Button, Image, Heading } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase"
 import { colors } from "@/constants/palette"
 import { toaster, Toaster } from "@/components/ui/toaster"
+import { PomatoImage } from "../shared/PomatoImage"
 
 type Props = {
     user: User | null | undefined
@@ -197,7 +198,7 @@ export const PomatoFarm = ({ user }: Props) => {
         >
           {formatTime(pomoTimer)}
         </Text>
-        <Image borderRadius="50%" src="pomato.png" />
+        <PomatoImage />
       </Box>
       <Box
         display="flex"
