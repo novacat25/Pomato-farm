@@ -15,6 +15,7 @@ export const colors = {
     tomatoGreen: "#087808",
     notice: "#FF6347",
     white: "#FFFFFF",
+    black: "#000000",
     lightWhite: "#F5F5F5"
   },
   background: {
@@ -25,5 +26,10 @@ export const colors = {
     darkwood: "#5C4033",
     tomatoGreen: "#4abe4a",
     white: "#FFFFFF",
+  },
+  social: {
+    github: "#000000",
+    google: "#FFFFFF",
+    facebook: "#4385be"
   }
 }
