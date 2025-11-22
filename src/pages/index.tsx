@@ -1,17 +1,20 @@
 "use client"
 
 import { auth } from "../utils/firebase"
-import { PomatoFarm } from "@/components/PomatoFarm"
-import { PomatoManage } from "@/components/PomatoManage"
-import { Button, Text, Flex, Grid, GridItem, Box } from "@chakra-ui/react"
+import { PomatoFarm } from "@/components/page-components/PomatoFarm"
+import { PomatoManage } from "@/components/page-components/PomatoManage"
+import { Grid, GridItem, Box, Heading } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { DEFAULT_DISPLAY_NAME, LOGOUT_CONFIRM_MESSAGE } from "@/constants"
+import { User } from "firebase/auth"
+import { UserInfo } from "@/components/page-components/UserInfo"
+import { LoadingDisplay } from "@/components/Loading"
+import { colors } from "@/constants/palette"
 
 
 export default function Home() {
   const router = useRouter()
-  const [userName, setUserName] = useState("")
+  const [loggedUser, setLoggedUser] = useState<User | null>()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export default function Home() {
         router.push("/login")
       } else {
         setIsLoading(false)
-        user.displayName ? setUserName(user.displayName) : setUserName(DEFAULT_DISPLAY_NAME)
+        setLoggedUser(user)
       }
     })
 
@@ -28,36 +31,44 @@ export default function Home() {
     }, [router])
 
   if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  const onClickLogout = async () => {
-    const ok = confirm(LOGOUT_CONFIRM_MESSAGE)
-    
-    if(ok) {
-      try {
-        await auth.signOut()
-        router.push("/login")
-      } catch (err) {
-        console.error(err)
-      }
-    }
+    return <LoadingDisplay />
   }
 
   return (
-    <Box padding={{ mdTo2xl: 8, base: 4 }}>
-      <Flex id="user-information" justifyContent="flex-end" alignItems="center" gap={4}>
-        <Text>{userName}</Text>
-        <Button onClick={onClickLogout}>LogOut</Button>
-      </Flex>
-      <Grid justifyItems="center" templateColumns={{ mdTo2xl: "65% 35%", base: "auto" }} gap="6">
-        <GridItem>
-          <PomatoFarm />
+    <Box
+      marginX={{ mdTo2xl: 8, base: 0 }}
+      paddingX={{ mdTo2xl: 16, base: 4 }}
+      paddingY={{ mdTo2xl: 8, base: 4 }}
+    >
+      <UserInfo user={loggedUser} />
+      <Box
+        paddingX={{ mdTo2xl: 2, base: 0 }}
+        paddingY={8}
+        border={`1px solid ${colors.background.lightWood}`}
+        backgroundColor={colors.background.lightWood}
+        borderRadius={16}
+      >
+        <Heading
+          textAlign="center"
+          fontSize={42}
+          color={colors.primary.main}
+        >
+          🌱 Pomato Farm
+        </Heading>
+      <Grid 
+        paddingX={4}
+        paddingY={8}
+        templateColumns={{ mdTo2xl: "repeat(3, 1fr)", base: "auto" }} 
+        gap="4"
+      >
+        <GridItem colSpan={{ mdTo2xl: 2 }}>
+          <PomatoFarm user={loggedUser} />
         </GridItem>
-        <GridItem>
+        <GridItem colSpan={{ mdTo2xl: 1 }}>
           <PomatoManage />
         </GridItem>
       </Grid>
+      </Box>
     </Box>
   )
 }
