@@ -1,9 +1,12 @@
-import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, SkeletonCircle, NumberInput, Box, Button } from "@chakra-ui/react"
+import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
+import { Text, Flex, NumberInput, Box, Button, Image, Heading } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase"
+import { colors } from "@/constants/palette"
+import { toaster, Toaster } from "@/components/ui/toaster"
+import { PomatoImage } from "../shared/PomatoImage"
 
 type Props = {
     user: User | null | undefined
@@ -41,7 +44,11 @@ export const PomatoFarm = ({ user }: Props) => {
       setIsPommatoRunning(true)
       setIsPaused(false)
     } else {
-      console.log("Set the Pomo Timer First!")
+      toaster.create({
+        description: message.valiError.SET_POMOTIME_FIRST,
+        type: "error",
+        closable: true,
+      })
     }
   }
 
@@ -124,7 +131,6 @@ export const PomatoFarm = ({ user }: Props) => {
   }  
 
   const handlePomatoCountUp = async () => {
-    console.log("pomatoCount has been increased!")
     setPomatoCount((prev) => prev + 1)
     if (user) {
       try {
@@ -144,6 +150,10 @@ export const PomatoFarm = ({ user }: Props) => {
           updatedAt: serverTimestamp(),
         })
         
+        toaster.create({
+          description: message.success.POMO_FINISHED,
+          type: "success",
+        })
       } catch (e) {
         console.error(e)
       }
@@ -160,55 +170,142 @@ export const PomatoFarm = ({ user }: Props) => {
   }
 
   return (
-    <Flex direction="column" gap={4}>
+    <Box 
+      gap={4} 
+      padding={4}
+      backgroundColor={colors.background.main}
+      borderRadius={16}
+    >
+      <Toaster />
       <Box
+        id="pomo-timer"
         cursor="pointer"
+        display="flex"
+        justifySelf="center"
+        justifyContent="center"
         borderRadius="50%"
         onClick={onClick}
+        position="relative"
+        marginBottom={8}
       >
-        <SkeletonCircle 
-          justifySelf="center" 
-          size={{ mdTo2xl: 96, base: 48 }} 
-        />
-      </Box>
-      {!isPomatoRunning && 
-      <Flex justifyContent="center" gap={4}>
-        <NumberInput.Root 
-          width="50%" 
-          value={goalTimer}
-          onValueChange={(e) => {
-            setGoalTimer(e.value)
-            setPomoTimer(DEFAULT_POMO_TIMER)
-          }}
-          disabled={isPomatoRunning}
-          min={15} 
-          max={45}
-          allowMouseWheel
+        <Text
+          fontSize={{ mdTo2xl: 48, base: 24 }}
+          position="absolute"
+          fontWeight={600}
+          top={{ mdTo2xl: "50%", base: "55%" }} 
+          zIndex={2}
+          color={colors.text.lightWhite}
         >
-          <NumberInput.Control />
-          <NumberInput.Input />
-        </NumberInput.Root>
-        <Button onClick={handleSetGoalTimer}>
-          Set
-        </Button>
-        <Button onClick={handleReset}>
-          Reset
-        </Button>
-      </Flex>
-      }
-      <Text>{formatTime(pomoTimer)}</Text>        
-      <Text color="tomato" fontSize="0.9em">
-        주의! 일시정지 후 목표 시간을 바꾸시면 타이머가 초기화됩니다.
-      </Text>
-      <Text>
-        오늘 파밍한 토마토 수
-      </Text>
-      <Text>
-        {displayPomatoCount(pomatoCount)}
-      </Text>
-      <Text>
-        ToDo List
-      </Text>
-    </Flex>
+          {formatTime(pomoTimer)}
+        </Text>
+        <PomatoImage />
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={2}
+        alignItems="center"
+      >
+        {!isPomatoRunning && 
+        <Flex 
+          gap={2} 
+        >
+          <NumberInput.Root 
+            value={goalTimer}
+            onValueChange={(e) => {
+              setGoalTimer(e.value)
+              setPomoTimer(DEFAULT_POMO_TIMER)
+            }}
+            disabled={isPomatoRunning}
+            borderRadius={8}
+            backgroundColor={colors.background.white}
+            min={15} 
+            max={45}
+            allowMouseWheel
+          >
+            <NumberInput.Control />
+            <NumberInput.Input />
+          </NumberInput.Root>
+          <Button 
+            className="pomato-button"
+            borderRadius={8} 
+            backgroundColor={colors.button.primary} 
+            onClick={handleSetGoalTimer}
+          >
+            Set
+          </Button>
+          <Button 
+            className="pomato-button"
+            borderRadius={8} 
+            backgroundColor={colors.button.secondary} 
+            onClick={handleReset}
+          >
+            Reset
+          </Button>
+        </Flex>
+        }
+        <Text 
+          color={colors.primary.main} 
+          fontSize="0.9em"
+          textAlign="center"
+        >
+          주의! 일시정지 후 목표 시간을 바꾸시면<br className="only-pc" /> 타이머가 초기화됩니다.
+        </Text>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        textAlign="left"
+      >
+      <Box
+        id="today-record"
+        backgroundColor={colors.background.white}
+        borderRadius={16}
+        marginTop={8}
+        padding={4}
+      >
+        <Heading color={colors.text.tomatoGreen}>
+          📝 오늘의 기록
+        </Heading>
+        <Box
+          id="todays-tomato"
+          marginBottom={4}
+        >
+          <Text fontWeight={600}>
+          🚜 오늘 수확한 토마토 수
+          </Text>
+          <Text>
+            {displayPomatoCount(pomatoCount)}
+          </Text>
+        </Box>
+        <Box
+          id="todays-tomato"
+          marginBottom={4}
+        >
+          <Text fontWeight={600}>
+          ⏱️ 오늘 집중 시간
+          </Text>
+          <Text>
+            시간
+          </Text>
+        </Box>        
+        <Box
+          id="todo-list"
+          backgroundColor={colors.background.lightWood}
+          padding={2}
+          borderRadius={8}
+        >
+          <Text fontWeight={600}>
+            ToDo List (자유 기록)
+          </Text>
+          <Box
+            backgroundColor={colors.background.main}
+          >
+            <Text>개발 예정</Text>
+          </Box>
+        </Box>
+      </Box>
+      </Box>
+    </Box>
   )
 }

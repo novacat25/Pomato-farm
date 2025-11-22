@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAF7F2;
+  --foreground: #3E3E3E;
 }
 
 @theme inline {
@@ -22,5 +22,19 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+.pomato-button:hover {
+  opacity: 0.8;
+}
+
+.user-name {
+  font-weight: 600;
+}
+
+.only-pc {
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 }
