@@ -1,5 +1,5 @@
-import { DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
-import { Text, Flex, NumberInput, Box, Button, Image, Heading } from "@chakra-ui/react"
+import { className, DEFAULT_MINUTE, DEFAULT_POMO_TIMER, INTERVAL_MILISECOND, message, POMATO_EMOJI, SECOND_UNIT } from "@/constants"
+import { Text, Flex, NumberInput, Box, Button, Heading } from "@chakra-ui/react"
 import { User } from "firebase/auth"
 import { useEffect, useRef, useState } from "react"
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
@@ -227,7 +227,7 @@ export const PomatoFarm = ({ user }: Props) => {
             <NumberInput.Input />
           </NumberInput.Root>
           <Button 
-            className="pomato-button"
+            className={className.pomatoButton}
             borderRadius={8} 
             backgroundColor={colors.button.primary} 
             onClick={handleSetGoalTimer}
@@ -235,7 +235,7 @@ export const PomatoFarm = ({ user }: Props) => {
             Set
           </Button>
           <Button 
-            className="pomato-button"
+            className={className.pomatoButton}
             borderRadius={8} 
             backgroundColor={colors.button.secondary} 
             onClick={handleReset}

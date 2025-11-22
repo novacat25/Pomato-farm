@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { updateProfile, User } from "firebase/auth"
 import { UserInfo } from "@/components/page-components/UserInfo"
-import { DEFAULT_DISPLAY_NAME } from "@/constants"
+import { className, DEFAULT_DISPLAY_NAME } from "@/constants"
 import { colors } from "@/constants/palette"
 import { LoadingDisplay } from "@/components/Loading"
 
@@ -163,7 +163,7 @@ export default function EditProfile () {
             >
               <Button
                 backgroundColor={colors.button.primary} 
-                className="pomato-button"
+                className={className.pomatoButton}
                 disabled={isLoading} 
                 type="submit"
               >
@@ -171,7 +171,7 @@ export default function EditProfile () {
               </Button>
               <Button 
                 backgroundColor={colors.button.secondary} 
-                className="pomato-button"
+                className={className.pomatoButton}
                 onClick={()=>router.push("/")}
               >
                 취소

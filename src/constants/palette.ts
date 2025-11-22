@@ -15,14 +15,21 @@ export const colors = {
     tomatoGreen: "#087808",
     notice: "#FF6347",
     white: "#FFFFFF",
+    black: "#000000",
     lightWhite: "#F5F5F5"
   },
   background: {
     main: "#FAF7F2",
+    tomato: "#FF6347",
     wood: "#e4c28a",
     lightWood: "#f5e7d3",
     darkwood: "#5C4033",
     tomatoGreen: "#4abe4a",
     white: "#FFFFFF",
+  },
+  social: {
+    github: "#000000",
+    google: "#FFFFFF",
+    facebook: "#4385be"
   }
 }

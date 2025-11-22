@@ -25,7 +25,7 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-.pomato-button:hover {
+.pomato-button:hover, .pomato-link:hover {
   opacity: 0.8;
 }
 

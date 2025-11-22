@@ -10,6 +10,7 @@ import { FirebaseError } from "firebase/app"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { colors } from "@/constants/palette"
 import { PomatoImage } from "@/components/shared/PomatoImage"
+import { className, POMATO_EMOJI } from "@/constants"
 
 export default function Login() {
   const router = useRouter()
@@ -70,50 +71,82 @@ export default function Login() {
       paddingY={{ mdTo2xl: 8, base: 4 }}
     >
       <Box
-        paddingX={{ mdTo2xl: 2, base: 0 }}
+        paddingX={8}
         paddingY={8}
         border={`1px solid ${colors.background.lightWood}`}
         backgroundColor={colors.background.lightWood}
         borderRadius={16}
       >
-            <Button>서비스 소개</Button>
             <Box 
               display="flex"
               justifyContent="center"
             >
               <PomatoImage />
             </Box>
-            <Text textAlign="center">당신의 생산성을 위한 토마토 농사</Text>
+            <Text
+              color={colors.primary.main}
+              fontWeight={600} 
+              fontSize={18}
+              textAlign="center"
+              marginTop={4}
+              marginBottom={8}
+            >
+              {POMATO_EMOJI} 🌱 당신의 생산성을 위한 토마토 농사.
+            </Text>
             <form onSubmit={onSubmit}>
               <Input 
                 name="email"
                 value={formData.email}
                 onChange={onChange}
+                backgroundColor={colors.background.white}
+                borderRadius={8}
+                marginBottom={2}
                 required 
-                placeholder="example@test.com" 
+                placeholder="pomato-farmer@pomato.com" 
               />
               <PasswordInput  
                 name="password"
                 value={formData.password}
                 onChange={onChange}
+                backgroundColor={colors.background.white}
+                borderRadius={8} 
                 required 
                 autoComplete="on" 
               />
-              <Text textAlign="right">비밀번호를 잊어버리신 경우</Text>
+              <Text
+                marginTop={4}
+                textAlign="right"
+              >
+                비밀번호를 잊어버리신 경우
+              </Text>
               <Button
                 width="100%" 
+                className={className.pomatoButton}
                 disabled={isLoading} 
+                backgroundColor={colors.background.tomato}
                 type="submit"
+                marginY={4}
+                borderRadius={8}
               >
                 Login
               </Button>
             </form>
             <Text>
-              계정이 없으신가요? 
-              <Link href="/signup">계정 생성</Link>
+              계정이 없으신가요?&nbsp; 
+              <Link
+                fontWeight={600} 
+                className={className.pomatoLink}
+                color={colors.text.tomatoGreen}
+                href="/signup"
+              >
+                계정 생성
+              </Link>
             </Text>
             {error !== "" ? <Text color="red" fontWeight={600}>{error}</Text> : null}
-            <Separator marginY={8} />
+            <Separator
+                borderColor={colors.background.wood}
+                 marginY={8} 
+            />
             <SocialLogin />
         </Box>
     </Box>
