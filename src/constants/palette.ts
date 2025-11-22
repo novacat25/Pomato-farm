@@ -19,6 +19,7 @@ export const colors = {
   },
   background: {
     main: "#FAF7F2",
+    tomato: "#FF6347",
     wood: "#e4c28a",
     lightWood: "#f5e7d3",
     darkwood: "#5C4033",

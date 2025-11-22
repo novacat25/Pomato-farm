@@ -12,6 +12,11 @@ export const message = {
     }
 }
 
+export const className = {
+    pomatoButton: "pomato-button",
+    pomatoLink: "pomato-link"
+}
+
 export const DEFAULT_MINUTE = "15"
 export const SECOND_UNIT = 60
 export const POMATO_EMOJI = "🍅"
