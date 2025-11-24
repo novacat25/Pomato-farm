@@ -2,7 +2,6 @@
 
 import { Box, Button, Input, Link, Separator, Text } from "@chakra-ui/react"
 import { PasswordInput } from "@/components/ui/password-input"
-import { SocialLogin } from "@/components/page-components/SocialLogin"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { auth } from "../utils/firebase"
@@ -11,6 +10,7 @@ import { signInWithEmailAndPassword } from "firebase/auth"
 import { colors } from "@/constants/palette"
 import { PomatoImage } from "@/components/shared/PomatoImage"
 import { className, POMATO_EMOJI } from "@/constants"
+import { SocialAuth } from "@/components/page-components/SocialAuth"
 
 export default function Login() {
   const router = useRouter()
@@ -147,7 +147,7 @@ export default function Login() {
                 borderColor={colors.background.wood}
                  marginY={8} 
             />
-            <SocialLogin />
+            <SocialAuth isSignIn={true} />
         </Box>
     </Box>
   )
