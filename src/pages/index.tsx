@@ -1,8 +1,8 @@
 "use client"
 
 import { auth } from "../utils/firebase"
-import { PomatoFarm } from "@/components/page-components/PomatoFarm"
-import { PomatoManage } from "@/components/page-components/PomatoManage"
+import { PomatoFarm } from "@/components/pomato/PomatoFarm"
+import { PomatoManage } from "@/components/pomato/PomatoManage"
 import { Grid, GridItem, Box, Heading } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
