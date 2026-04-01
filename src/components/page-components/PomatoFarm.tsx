@@ -171,8 +171,9 @@ export const PomatoFarm = ({ user }: Props) => {
 
   return (
     <Box 
-      gap={4} 
-      padding={4}
+      gap={4}
+      paddingX={4}
+      paddingBottom={4}
       backgroundColor={colors.background.main}
       borderRadius={16}
     >
@@ -186,7 +187,7 @@ export const PomatoFarm = ({ user }: Props) => {
         borderRadius="50%"
         onClick={onClick}
         position="relative"
-        marginBottom={8}
+        marginBottom={4}
       >
         <Text
           fontSize={{ mdTo2xl: 48, base: 24 }}
@@ -261,19 +262,16 @@ export const PomatoFarm = ({ user }: Props) => {
         id="today-record"
         backgroundColor={colors.background.white}
         borderRadius={16}
-        marginTop={8}
+        marginTop={4}
         padding={4}
       >
         <Heading color={colors.text.tomatoGreen}>
-          📝 오늘의 기록
+          📝 TODO App
         </Heading>
         <Box
           id="todays-tomato"
           marginBottom={4}
         >
-          <Text fontWeight={600}>
-          🚜 오늘 수확한 토마토 수
-          </Text>
           <Text>
             {displayPomatoCount(pomatoCount)}
           </Text>
@@ -282,27 +280,6 @@ export const PomatoFarm = ({ user }: Props) => {
           id="todays-tomato"
           marginBottom={4}
         >
-          <Text fontWeight={600}>
-          ⏱️ 오늘 집중 시간
-          </Text>
-          <Text>
-            시간
-          </Text>
-        </Box>        
-        <Box
-          id="todo-list"
-          backgroundColor={colors.background.lightWood}
-          padding={2}
-          borderRadius={8}
-        >
-          <Text fontWeight={600}>
-            ToDo List (자유 기록)
-          </Text>
-          <Box
-            backgroundColor={colors.background.main}
-          >
-            <Text>개발 예정</Text>
-          </Box>
         </Box>
       </Box>
       </Box>
