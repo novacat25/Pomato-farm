@@ -26,7 +26,6 @@ export default function Home() {
         setLoggedUser(user)
       }
     })
-
     return () => unsubscribe()
     }, [router])
 
@@ -36,8 +35,8 @@ export default function Home() {
 
   return (
     <Box
-      marginX={{ mdTo2xl: 8, base: 0 }}
-      paddingX={{ mdTo2xl: 16, base: 4 }}
+      marginX={{ mdTo2xl: 4, base: 0 }}
+      paddingX={{ mdTo2xl: 8, base: 4 }}
       paddingY={{ mdTo2xl: 8, base: 4 }}
     >
       <UserInfo user={loggedUser} />
@@ -50,7 +49,7 @@ export default function Home() {
       >
         <Heading
           textAlign="center"
-          fontSize={42}
+          fontSize={36}
           color={colors.primary.main}
         >
           🌱 Pomato Farm

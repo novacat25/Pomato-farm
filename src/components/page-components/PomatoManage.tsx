@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Tabs } from "@chakra-ui/react"
+import { Text, Box, Tabs } from "@chakra-ui/react"
 import { LuCalendarDays, LuUser } from "react-icons/lu"
 import { colors } from '@/constants/palette'
 
@@ -29,10 +29,14 @@ export const PomatoManage = () => {
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content padding={2} value="daily">
-          일일 수확 관리 (개발 예정)
+          <Text fontWeight={600}>
+            🚜 오늘 수확한 토마토 수
+          </Text>
         </Tabs.Content>
         <Tabs.Content padding={2} value="monthly">
-          달별 관리 (개발 예정)
+          <Text fontWeight={600}>
+            🚜 이번 달 수확한 토마토 수
+          </Text>
         </Tabs.Content>
       </Tabs.Root>
     </Box>
