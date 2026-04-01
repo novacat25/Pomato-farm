@@ -6,8 +6,8 @@ Pomato-farm
 A productivity app based on the Pomodoro technique, designed to explore how minimal interaction can improve focus and habit consistency.
 
 ### Current Status
-- 2026/04/01: 기본적인 인증 & 포모도로 기능 구현 완료
- => Status: Prototype (Core features implemented)
+- 2026/04/01: 기본적인 인증 & 포모도로 기능 구현 완료  
+=> Status: Prototype (Core features implemented)
 
 ## 👤 Potential Target User
 하나의 앱을 통해 셍신상 관리를 하고 싶은 이용자
