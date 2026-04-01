@@ -1,40 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Project Name
+Pomato-farm
 
-## Getting Started
+## 📌 Overview
+포모도로 기법을 기반으로, 최소한의 인터랙션으로 집중 습관을 형성할 수 있는지 검증하기 위한 프로토타입 앱.
+A productivity app based on the Pomodoro technique, designed to explore how minimal interaction can improve focus and habit consistency.
 
-First, run the development server:
+### Current Status
+- 2026/04/01: 기본적인 인증 & 포모도로 기능 구현 완료
+ => Status: Prototype (Core features implemented)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 👤 Potential Target User
+하나의 앱을 통해 셍신상 관리를 하고 싶은 이용자
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Purpose
+- 외부 강의에 의존하지 않는 개발 경험을 세울 것
+- 생산성 향상, 집중도 훈련 등 본인의 소기의 목적을 달성하기 위함과 동시에 개발 경험을 쌓기 위함.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 🧪 Scope
+### Included
+- Authentication (Firebase 기반 간단 인증)
+- Pomodoro timer (집중 세션 관리)
+- Session 결과 저장 (이미지 캡처)
+- TODO 연동 (작업 단위 집중)
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Why this scope?
+- "집중 → 기록 → 회고" 흐름을 최소 기능으로 검증하기 위함
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Why Firebase?
+빠른 프로토타이핑과 인증 구현 속도를 위해 선택
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Why Pomodoro?
+집중과 휴식의 반복이 습관 형성에 효과적이라고 판단
 
-## Learn More
+## 🚧 Limitations
+### Product
+- 타겟 유저를 명확히 정의하지 않고 시작한 프로젝트로, UX 방향성이 실험적임
 
-To learn more about Next.js, take a look at the following resources:
+### Technical
+- Firebase 기반으로 빠른 프로토타이핑에 집중 (RDB 설계 미적용)
+- 테스트 코드 미구현 (속도 우선 선택)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 🧠 What I Learned
+### Project Management
+- 작업 시간 기록의 중요성(정량적, 정성적 Performance Check)
+- 프로젝트/업무 지연 시 원인 기록 필요성
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Technical
+- setInterval / clearInterval 기반 Timer 제어
+- 상태 기반 타이머 관리 방식(useState, useEffect)
 
-## Deploy on Vercel
+### Insight
+- 설계 없이 구현하면 속도는 빠르지만 유지보수성이 떨어짐
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 🔜 Possible Improvements
+- 코드 리팩토링(Code Refactoring)
+  - 중복된 인증 파츠 등은 useContext나 상태 관리 툴 등을 통해 중복을 줄일 것
+- 남은 과제 구현
+  - TODO App과 Pomodoro App 기능을 어떻게 연동할 것인가?
+  - 화면 캡처 & 공유 기능은 무엇을 통해 개발할 수 있는가?
