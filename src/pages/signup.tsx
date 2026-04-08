@@ -2,7 +2,6 @@
 
 import { Box, Button, Field, Fieldset, Input, Separator, Link, Text } from "@chakra-ui/react"
 import { PasswordInput } from "@/components/ui/password-input"
-import { SocialSignup } from "@/components/page-components/SocialSignup"
 import { useState } from "react"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "../utils/firebase"
@@ -11,6 +10,7 @@ import { useRouter } from "next/router"
 import { className, DEFAULT_DISPLAY_NAME, POMATO_EMOJI } from "@/constants"
 import { PomatoImage } from "@/components/shared/PomatoImage"
 import { colors } from "@/constants/palette"
+import { SocialAuth } from "@/components/page-components/SocialAuth"
 
 export default function Signup() {
     const router = useRouter()
@@ -137,7 +137,7 @@ export default function Signup() {
                         fontWeight={600} 
                         className={className.pomatoLink}
                         color={colors.text.tomatoGreen}
-                        href="/signup"
+                        href="/login"
                     >
                         로그인
                     </Link>
@@ -148,7 +148,7 @@ export default function Signup() {
                 borderColor={colors.background.wood}
                  marginY={8} 
             />
-            <SocialSignup />
+            <SocialAuth isSignIn={false} />
         </Box>
     </Box>
   )
